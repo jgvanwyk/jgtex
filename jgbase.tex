@@ -1,0 +1,124 @@
+% Load the article class, forwarding all provided options to it
+\DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
+\ProcessOptions\relax
+\LoadClass{article}
+
+% Packages
+\RequirePackage{xcolor}
+\RequirePackage{hyperref}
+\RequirePackage{amsthm}
+\RequirePackage{amsmath}
+\RequirePackage{newtxtext}
+\RequirePackage{newtxmath}
+\RequirePackage{enumitem}
+\RequirePackage[nameinlink,capitalise]{cleveref}
+
+% Styling
+\setlist{%
+    label         = (\alph*),
+    listparindent = \parindent,
+    topsep        = \smallskipamount,
+    parsep        = \parskip,
+    left          = .5ex}
+
+\if@titlepage
+    \let\articlemaketitle\maketitle
+    \renewcommand{\maketitle}{\hypersetup{pageanchor=false}\articlemaketitle}
+\fi
+
+\AtBeginDocument{%
+    \bigskipamount.7\baselineskip plus.7\baselineskip
+    \medskipamount\bigskipamount \divide\medskipamount\tw@
+    \smallskipamount\medskipamount \divide\smallskipamount\tw@
+    \abovedisplayskip\medskipamount
+    \belowdisplayskip \abovedisplayskip
+    \abovedisplayshortskip\abovedisplayskip
+    \advance\abovedisplayshortskip-1\abovedisplayskip
+    \belowdisplayshortskip\abovedisplayshortskip
+    \advance\belowdisplayshortskip 1\smallskipamount
+    \jot\baselineskip \divide\jot 4 \relax}
+
+\renewcommand{\@seccntformat}[1]{\csname the#1\endcsname\enspace}
+
+\let\defn\emph
+\newcommand{\comment}[1]{{\color{red}#1}}
+\let\vec\mathbf
+
+\renewcommand{\Phi}{\varPhi}
+\renewcommand{\Gamma}{\varGamma}
+\renewcommand{\Lambda}{\varLambda}
+\renewcommand{\Omega}{\varOmega}
+\renewcommand{\phi}{\varphi}
+\renewcommand{\epsilon}{\varepsilon}
+\renewcommand{\emptyset}{\varnothing}
+\renewcommand{\implies}{\Rightarrow}
+\renewcommand{\iff}{\Leftrightarrow}
+\renewcommand{\cong}{\equiv}
+\let\Re\@jgundefined
+\let\Im\@jgundefined
+\newcommand{\Re}{\mathoperator{Re}}
+\newcommand{\Im}{\mathoperator{Im}}
+
+\let\section\@jgundefined
+\let\subsection\@jgundefined
+\let\subsubsection\@jgundefined
+\let\paragraph\@jgundefined
+\let\subparagraph\@jgundefined
+
+\newtheoremstyle{theorem}%
+    {.5\baselineskip\@plus.2\baselineskip\@minus.2\baselineskip}%
+    {.5\baselineskip\@plus.2\baselineskip\@minus.2\baselineskip}%
+    {\itshape}%
+    {0pt}%
+    {\bfseries}%
+    {.}%
+    {0.5em}%
+    {\thmnumber{#2\enspace}\thmname{#1}\thmnote{\ (#3)}}
+
+
+\newtheoremstyle{definition}%
+    {.5\baselineskip\@plus.2\baselineskip\@minus.2\baselineskip}%
+    {.5\baselineskip\@plus.2\baselineskip\@minus.2\baselineskip}%
+    {\normalfont}%
+    {0pt}%
+    {\bfseries}%
+    {.}%
+    {0.5em}%
+    {\thmnumber{#2\enspace}\thmname{#1}\thmnote{\ (#3)}}
+
+\numberwithin{equation}{\@jgnumberingcounter}
+
+\crefname{equation}{}{}
+\crefname{section}{Section}{Sections}
+\crefname{subsection}{Subsection}{Subsections}
+
+\theoremstyle{theorem}
+
+\newtheorem{theorem}{Theorem}[\@jgnumberingcounter]
+\newtheorem*{theorem*}{Theorem}
+\crefname{theorem}{}{}
+
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem*{lemma*}{Lemma}
+
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem*{proposition*}{Proposition}
+\crefname{proposition}{}{}
+
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem*{corollary*}{Corollary}
+\crefname{corollary}{}{}
+
+\theoremstyle{definition}
+
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem*{definition*}{Definition}
+\crefname{definition}{}{}
+
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem*{remark*}{Remark}
+\crefname{remark}{}{}
+
+\newtheorem{example}[theorem]{Example}
+\newtheorem*{example*}{Example}
+\crefname{example}{}{}
